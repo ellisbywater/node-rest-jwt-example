@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const app = express();
 
+const authRoute = require('./routes/auth');
 // connect to mongo
 mongoose.connect(
 	`mongodb+srv://ebwx:${process.env.DB_PASSWORD}@apidev-gevmo.azure.mongodb.net/${process.env
@@ -11,7 +12,8 @@ mongoose.connect(
 	() => console.log(`Successfully connected to || ${process.env.DB_NAME}`)
 );
 
-const authRoute = require('./routes/auth');
+// middlewares
+app.use(express.json());
 
 app.use('/api/user', authRoute);
 
